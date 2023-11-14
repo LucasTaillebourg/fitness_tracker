@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: fitness-tracker-bdd
+    environment:
+      POSTGRES_USER: Settrak
+      POSTGRES_PASSWORD: SettrakDb
+      POSTGRES_DB: fitness-tracker-bdd
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+
+volumes:
+  postgres_data:
+

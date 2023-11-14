@@ -1,0 +1,16 @@
+version: '2.1'
+
+services: 
+  docker-mysql:
+    container_name: docker-mysql
+    image: mysql:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=abfut
+      - MYSQL_PASSWORD=root
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 5s
+      retries: 20
+  
+
