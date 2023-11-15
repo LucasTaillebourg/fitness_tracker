@@ -3,7 +3,15 @@ import * as db from './db'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
-export const registerUser = async (req: Request, res: Response) => {
+interface User {
+  id: number
+  username: string
+  password: string
+  token: string
+  password_hash: string
+}
+
+export const registerUser = async (req: Request<User, User, User>, res: Response) => {
   const { username, password } = req.body
 
   const userExists = await checkIfUserExists(username)
@@ -18,7 +26,7 @@ export const registerUser = async (req: Request, res: Response) => {
 
   try {
     const result = await db.query(insertQuery, values)
-    const newUser = result.rows[0]
+    const newUser = result.rows[0] as User
 
     // Générer un token d'authentification
     const token = generateToken(newUser.id)
@@ -26,7 +34,7 @@ export const registerUser = async (req: Request, res: Response) => {
     // Mettre à jour la base de données avec le token
     await updateUserToken(newUser.id, token)
 
-    res.status(201).json({ user: newUser, token })
+    res.status(201).json({ user: { ...newUser, token } })
   } catch (error) {
     console.error('Erreur lors de l\'inscription:', error)
     res.status(500).json({ error: 'Internal server error' })
@@ -38,7 +46,7 @@ export const loginUser = async (req: Request, res: Response) => {
   const { username, password } = req.body
 
   // Vérifier si l'utilisateur existe
-  const user = await getUserByUsername(username)
+  const user = await getUserByUsername(username) as User | undefined
   if (!user) {
     return res.status(401).json({ error: 'Invalid username or password' })
   }
