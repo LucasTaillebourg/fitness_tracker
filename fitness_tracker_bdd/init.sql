@@ -1,14 +1,11 @@
 
 \c fitness-tracker-bdd;
 
-CREATE TABLE "User" (
+CREATE TABLE FITNESS_USER (
     id SERIAL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    password VARCHAR(255) NOT NULL
+    username VARCHAR(255) NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    token VARCHAR(255)
 );
-
-
-INSERT INTO "User" (name, password) VALUES ('utilisateur_exemple', 'mot_de_passe_exemple');
-
 
 
