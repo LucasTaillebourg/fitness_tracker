@@ -17,8 +17,8 @@ CREATE TABLE Series (
   repetitions INT
 );
 
-CREATE TABLE Exercise (
-  exercise_id SERIAL PRIMARY KEY,
+CREATE TABLE Exercice (
+  exercice_id SERIAL PRIMARY KEY,
   name VARCHAR(255) NOT NULL
 );
 CREATE TABLE Training (
@@ -28,14 +28,14 @@ CREATE TABLE Training (
   user_id INT REFERENCES FITNESS_USER(id) 
 );
 
-CREATE TABLE ExerciseSeries (
-  exercise_id INT REFERENCES Exercise(exercise_id),
+CREATE TABLE ExerciceSeries (
+  exercice_id INT REFERENCES Exercice(exercice_id),
   series_id INT REFERENCES Series(series_id),
-  PRIMARY KEY (exercise_id, series_id)
+  PRIMARY KEY (exercice_id, series_id)
 );
 
-CREATE TABLE TrainingExercise (
+CREATE TABLE TrainingExercice (
   training_id INT REFERENCES Training(training_id),
-  exercise_id INT REFERENCES Exercise(exercise_id),
-  PRIMARY KEY (training_id, exercise_id)
+  exercice_id INT REFERENCES Exercice(exercice_id),
+  PRIMARY KEY (training_id, exercice_id)
 );

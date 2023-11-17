@@ -1,5 +1,7 @@
 import express from 'express'
 import * as userController from './app/features/userController'
+import * as trainingController from './app/features/trainingController'
+import * as machineController from './app/features/machineController'
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
 
@@ -15,8 +17,11 @@ app.post('/api/register', userController.registerUser)
 // Endpoint pour la connexion
 app.post('/api/login', userController.loginUser)
 
-// Endpoint pour récupérer les informations de l'utilisateur (exigeant un token valide)
 app.get('/api/user', authenticateUser, userController.getUsers)
+
+app.post('/api/insertTraining', trainingController.addTraining)
+
+app.post('/api/insertMachine', machineController.addMachine)
 
 const secretKey = process.env.SECRET_KEY ?? ''
 
