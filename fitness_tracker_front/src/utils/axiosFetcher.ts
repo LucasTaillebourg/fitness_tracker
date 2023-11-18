@@ -10,7 +10,6 @@ axAPI.interceptors.request.use(async (config) => {
   //const [token] = useRecoilState(TokenAtom)
 
   config.headers.Authorization = 'token'
-  console.log({ config, t: 'token' })
 
   return config
 })

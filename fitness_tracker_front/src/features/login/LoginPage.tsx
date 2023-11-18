@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
-import { Button } from '../../component'
 import styles from './LoginPage.module.scss'
 import { useRegister } from './../../hooks/useRegister'
+import { useForm } from '@mantine/form'
+import { RegisterForm } from './RegisterForm'
+import { Button } from '@mantine/core'
 
 export enum LoginState {
   BASEPAGE = 'BASEPAGE',
@@ -14,12 +16,6 @@ export const LoginPage = () => {
 
   const { mutate } = useRegister()
 
-  useEffect(() => {
-    if (pageState === LoginState.REGISTER) {
-      mutate({ username: 'user1', password: 'test' })
-    }
-  }, [pageState])
-
   return (
     <div className={styles.loginContainer}>
       {pageState === LoginState.BASEPAGE && (
@@ -29,29 +25,36 @@ export const LoginPage = () => {
           </p>
           <p className={styles.text}>Que souhaitez vous faire</p>
           <div className={styles.buttonContainer}>
-            <Button onClick={() => setPageState(LoginState.REGISTER)}>
+            <Button
+              variant='filled'
+              color='gray'
+              onClick={() => setPageState(LoginState.REGISTER)}
+            >
               S'inscrire
             </Button>
-            <Button onClick={() => setPageState(LoginState.LOGIN)}>
+            <Button
+              variant='filled'
+              color='gray'
+              onClick={() => setPageState(LoginState.LOGIN)}
+            >
               Se connecter
             </Button>
           </div>
         </>
       )}
       {pageState === LoginState.REGISTER && (
-        <>
-          <p className={styles.text}>Merci de vous inscrire a fitness tracer</p>
-          <Button onClick={() => setPageState(LoginState.BASEPAGE)}>
-            Retour
-          </Button>
-        </>
+        <RegisterForm onReturn={() => setPageState(LoginState.BASEPAGE)} />
       )}
       {pageState === LoginState.LOGIN && (
         <>
           <p className={styles.text}>
             Saisissez vos informations de connection
           </p>
-          <Button onClick={() => setPageState(LoginState.BASEPAGE)}>
+          <Button
+            variant='filled'
+            color='gray'
+            onClick={() => setPageState(LoginState.BASEPAGE)}
+          >
             Retour
           </Button>
         </>
