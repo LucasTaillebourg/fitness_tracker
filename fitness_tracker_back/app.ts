@@ -17,7 +17,8 @@ app.post('/api/login', userController.loginUser)
 
 app.get('/api/user', authenticateUser, userController.getUsers)
 
-app.post('/api/training', authenticateUser, trainingController.addTraining)
+app.post('/api/trainings', authenticateUser, trainingController.addTraining)
+app.get('/api/user/trainings', authenticateUser, trainingController.getUserTrainings)
 
 app.post('/api/machine', machineController.addMachine)
 
@@ -25,7 +26,6 @@ const secretKey = process.env.SECRET_KEY ?? ''
 
 // Fonction middleware pour l'authentification
 function authenticateUser (req: any, res: any, next: any) {
-  // Vérifier la présence du token dans l'en-tête Authorization
   const token = req.header('Authorization')
 
   if (!token) {
@@ -33,13 +33,8 @@ function authenticateUser (req: any, res: any, next: any) {
   }
 
   try {
-    // Vérifier la validité du token
-    console.log({ token })
-    console.log({ secretKey })
-
-    const decoded = jwt.verify(token, secretKey) // Remplacez par votre clé secrète
-    console.log({ decoded })
-    req.body.userId = typeof decoded === 'string' ? decoded : decoded.userId // Stocker l'ID utilisateur dans la requête
+    const decoded = jwt.verify(token, secretKey)
+    req.body.userId = typeof decoded === 'string' ? decoded : decoded.userId
     next()
   } catch (error) {
     console.error('Erreur de vérification du token:', error)

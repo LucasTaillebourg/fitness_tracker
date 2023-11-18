@@ -62,7 +62,6 @@ export const insertTrainingWithExercices = async (training: Training) => {
     }
 
     for (const seriesId of seriesIds) {
-      console.log({ exerciceId, seriesId })
       await db.query(insertExerciceSeriesQuery, [exerciceId, seriesId])
     }
 
@@ -73,4 +72,24 @@ export const insertTrainingWithExercices = async (training: Training) => {
   await db.query('COMMIT')
 
   console.log('Entraînement avec exercices et séries inséré avec succès.')
+}
+
+export const getUserTrainings = async (req: Request<{ userId: string }>, res: Response) => {
+  try {
+    const { userId } = req.body
+
+    const userTrainings = await getUserTrainingsRequest(userId as number)
+
+    res.status(200).json(userTrainings)
+  } catch (error) {
+    console.error('Erreur lors de la récupération des entraînements de l\'utilisateur :', error)
+    res.status(500).json({ error: 'Erreur interne du serveur' })
+  }
+}
+
+export const getUserTrainingsRequest = async (userId: number): Promise<any[]> => {
+  const query = 'SELECT * FROM Training WHERE user_id = $1'
+  const result: QueryResult = await db.query(query, [userId])
+
+  return result.rows
 }
