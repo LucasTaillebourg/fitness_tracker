@@ -1,3 +1,18 @@
 .loginContainer {
-  color: red;
+  align-self: center;
+  margin-top: 40vh;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.text {
+  all: unset;
+  align-self: center;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
 }
