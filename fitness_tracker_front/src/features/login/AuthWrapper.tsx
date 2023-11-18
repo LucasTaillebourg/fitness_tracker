@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { useLogin } from './useLogin'
+import { useToken } from '../../hooks/useToken'
 import { LoginPage } from './LoginPage'
 
 interface AuthWrapperProps {
@@ -7,7 +7,7 @@ interface AuthWrapperProps {
 }
 
 export const AuthWrapper = ({ children }: AuthWrapperProps) => {
-  const { isAuthenticated } = useLogin()
+  const { isAuthenticated } = useToken()
 
   return isAuthenticated ? <>{children}</> : <LoginPage />
 }
