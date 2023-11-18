@@ -1,27 +1,21 @@
-exports = {
-  parser: '@typescript-eslint/parser',
-  plugins: [
-    'react',
-    'react-hooks',
-    'jsx-a11y',
-    '@typescript-eslint',
-    'prettier',
-  ],
-  extends: [
-    'eslint:recommended',
-    'plugin:react/recommended',
-    'plugin:react/jsx-runtime',
-    'plugin:react-hooks/recommended',
-    'plugin:jsx-a11y/recommended',
-    'plugin:@typescript-eslint/recommended',
-    'prettier',
-  ],
-  rules: {
-    'prettier/prettier': 'error',
+module.exports = {
+  env: {
+    browser: true,
+    es2021: true,
+    node: true,
   },
-  settings: {
-    react: {
-      version: 'detect',
+  parserOptions: {
+    parser: '@typescript-eslint/parser',
+    ecmaFeatures: {
+      jsx: true,
     },
+    sourceType: 'module',
+    ecmaVersion: '2020',
+  },
+  ignorePatterns: ['dist/*', 'node_modules/*'],
+  plugins: ['@typescript-eslint'],
+  extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended'],
+  rules: {
+    '@typescript-eslint/no-unused-vars': 'warn',
   },
 }
