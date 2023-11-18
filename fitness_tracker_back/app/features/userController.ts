@@ -34,7 +34,7 @@ export const registerUser = async (req: Request<User, User, User>, res: Response
     // Mettre à jour la base de données avec le token
     await updateUserToken(newUser.id, token)
 
-    res.status(201).json({ user: { ...newUser, token } })
+    res.status(201).json({ name: newUser.username, token })
   } catch (error) {
     console.error('Erreur lors de l\'inscription:', error)
     res.status(500).json({ error: 'Internal server error' })

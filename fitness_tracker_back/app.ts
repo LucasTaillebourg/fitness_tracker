@@ -1,4 +1,5 @@
 import express from 'express'
+import cors from 'cors'
 import * as userController from './app/features/userController'
 import * as trainingController from './app/features/trainingController'
 import * as machineController from './app/features/machineController'
@@ -6,6 +7,7 @@ import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
 
 const app = express()
+app.use(cors())
 const port = 3000
 dotenv.config()
 

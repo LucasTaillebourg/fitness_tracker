@@ -1,15 +1,16 @@
 import axios, { AxiosRequestConfig } from 'axios'
 import { useRecoilState } from 'recoil'
-import { TokenAtom } from 'src/atoms/TokenAtom'
+import { TokenAtom } from '../atoms/TokenAtom'
 
 export const axAPI = axios.create({
-  baseURL: '/api/',
+  baseURL: 'http://localhost:3000/api/',
 })
 
 axAPI.interceptors.request.use(async (config) => {
-  const [token] = useRecoilState(TokenAtom)
+  //const [token] = useRecoilState(TokenAtom)
 
-  config.headers.Authorization = token
+  config.headers.Authorization = 'token'
+  console.log({ config, t: 'token' })
 
   return config
 })

@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Button } from '../../component'
 import styles from './LoginPage.module.scss'
+import { useRegister } from './../../hooks/useRegister'
 
 export enum LoginState {
   BASEPAGE = 'BASEPAGE',
@@ -10,6 +11,14 @@ export enum LoginState {
 
 export const LoginPage = () => {
   const [pageState, setPageState] = useState<LoginState>(LoginState.BASEPAGE)
+
+  const { mutate } = useRegister()
+
+  useEffect(() => {
+    if (pageState === LoginState.REGISTER) {
+      mutate({ username: 'user1', password: 'test' })
+    }
+  }, [pageState])
 
   return (
     <div className={styles.loginContainer}>

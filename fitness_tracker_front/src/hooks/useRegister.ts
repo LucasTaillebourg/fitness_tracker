@@ -1,11 +1,16 @@
 import { useMutation } from 'react-query'
-import { axiosFetcher } from 'src/utils/axiosFetcher'
+import { axiosFetcher } from '../utils/axiosFetcher'
+
+export interface RegisterPayload {
+  username: string
+  password: string
+}
 
 export const useRegister = () => {
-  return useMutation((payload) =>
+  return useMutation((payload: RegisterPayload) =>
     axiosFetcher({
       method: 'POST',
-      url: `billing_invoices/export`,
+      url: `register`,
       data: payload,
     })
   )
