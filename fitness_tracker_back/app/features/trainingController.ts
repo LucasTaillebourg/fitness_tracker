@@ -6,6 +6,7 @@ import { type Request, type Response } from 'express'
 interface Training {
   date: string
   name: string
+  userId: string
   exercices: Exercice[]
 }
 
@@ -24,7 +25,7 @@ const app = express()
 
 app.use(express.json())
 
-export const addTraining = async (req: Request, res: Response) => {
+export const addTraining = async (req: Request<Training>, res: Response) => {
   try {
     const training = req.body
 
@@ -40,15 +41,15 @@ export const addTraining = async (req: Request, res: Response) => {
 export const insertTrainingWithExercices = async (training: Training) => {
   await db.query('BEGIN')
 
-  const insertTrainingQuery = 'INSERT INTO Training (date, name) VALUES ($1, $2) RETURNING training_id'
-  const trainingResult: QueryResult = await db.query(insertTrainingQuery, [training.date, training.name])
+  const insertTrainingQuery = 'INSERT INTO Training (user_id, date, name) VALUES ($1, $2, $3) RETURNING training_id'
+  const trainingResult: QueryResult = await db.query(insertTrainingQuery, [training.userId, training.date, training.name])
   const trainingId: number = trainingResult.rows[0].training_id
 
   const insertExerciceSeriesQuery = 'INSERT INTO ExerciceSeries (exercice_id, series_id) VALUES ($1, $2)'
 
   for (const exercice of training.exercices) {
-    const insertExerciceQuery = 'INSERT INTO Exercice (exercice_id, name) VALUES ($1, $2) RETURNING exercice_id'
-    const exerciceResult: QueryResult = await db.query(insertExerciceQuery, [exercice.exercice_id, exercice.name])
+    const insertExerciceQuery = 'INSERT INTO Exercice (name) VALUES ($1) RETURNING exercice_id'
+    const exerciceResult: QueryResult = await db.query(insertExerciceQuery, [exercice.name])
     const exerciceId: number = exerciceResult.rows[0].exercice_id
 
     const seriesIds: number[] = []
@@ -61,6 +62,7 @@ export const insertTrainingWithExercices = async (training: Training) => {
     }
 
     for (const seriesId of seriesIds) {
+      console.log({ exerciceId, seriesId })
       await db.query(insertExerciceSeriesQuery, [exerciceId, seriesId])
     }
 

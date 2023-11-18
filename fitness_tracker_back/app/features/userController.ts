@@ -63,7 +63,7 @@ export const loginUser = async (req: Request, res: Response) => {
   // Mettre à jour la base de données avec le token
   await updateUserToken(user.id, token)
 
-  res.json({ user, token })
+  res.json({ name: user.username, token })
 }
 
 export const getUsers = async (req: Request, res: Response) => {

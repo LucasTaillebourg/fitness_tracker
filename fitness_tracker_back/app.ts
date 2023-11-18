@@ -11,17 +11,15 @@ dotenv.config()
 
 app.use(express.json())
 
-// Endpoint pour l'inscription (création d'un utilisateur)
 app.post('/api/register', userController.registerUser)
 
-// Endpoint pour la connexion
 app.post('/api/login', userController.loginUser)
 
 app.get('/api/user', authenticateUser, userController.getUsers)
 
-app.post('/api/insertTraining', trainingController.addTraining)
+app.post('/api/training', authenticateUser, trainingController.addTraining)
 
-app.post('/api/insertMachine', machineController.addMachine)
+app.post('/api/machine', machineController.addMachine)
 
 const secretKey = process.env.SECRET_KEY ?? ''
 
@@ -36,8 +34,12 @@ function authenticateUser (req: any, res: any, next: any) {
 
   try {
     // Vérifier la validité du token
+    console.log({ token })
+    console.log({ secretKey })
+
     const decoded = jwt.verify(token, secretKey) // Remplacez par votre clé secrète
-    req.userId = typeof decoded === 'string' ? decoded : decoded.userId // Stocker l'ID utilisateur dans la requête
+    console.log({ decoded })
+    req.body.userId = typeof decoded === 'string' ? decoded : decoded.userId // Stocker l'ID utilisateur dans la requête
     next()
   } catch (error) {
     console.error('Erreur de vérification du token:', error)
