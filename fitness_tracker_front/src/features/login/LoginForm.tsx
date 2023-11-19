@@ -5,6 +5,7 @@ import { useRecoilState } from 'recoil'
 import { User } from './LoginPage'
 import { useLogin } from '../../hooks/useLogin'
 import { ConnectedUserAtom } from '../../atoms/TokenAtom'
+import { toast } from 'react-toastify'
 
 export interface RegisterFormProps {
   onReturn: () => void
@@ -29,12 +30,15 @@ export const LoginForm = ({ onReturn }: RegisterFormProps) => {
           username: data?.data?.name,
         })
       },
+      onError() {
+        toast.error('🦄 Informations de connexion erronées, LOOOOOOOSER 🦄')
+      },
     })
   }
 
   return (
     <>
-      <p className={styles.text}>Saisissez vos informations de connection : </p>
+      <p className={styles.text}>Saisissez vos informations de connexion : </p>
       <form onSubmit={form.onSubmit(onSubmit)}>
         <Stack gap='sm'>
           <TextInput

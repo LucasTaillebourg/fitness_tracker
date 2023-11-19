@@ -5,6 +5,7 @@ import { useRegister } from '../../hooks/useRegister'
 import { useRecoilState } from 'recoil'
 import { User } from './LoginPage'
 import { ConnectedUserAtom } from '../../atoms/TokenAtom'
+import { toast } from 'react-toastify'
 
 export interface RegisterFormProps {
   onReturn: () => void
@@ -28,6 +29,11 @@ export const RegisterForm = ({ onReturn }: RegisterFormProps) => {
           token: data?.data?.user?.token,
           username: data?.data?.user?.name,
         })
+      },
+      onError(error: any) {
+        toast.error(
+          `🦄 Impossible de créer votre utilisateur 🦄 : ${error?.response?.data?.error}`
+        )
       },
     })
   }
