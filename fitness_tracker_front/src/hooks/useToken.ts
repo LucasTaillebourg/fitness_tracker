@@ -1,10 +1,8 @@
 import { useRecoilState } from 'recoil'
-import { TokenAtom } from '../atoms/TokenAtom'
-import { UserIdAtom } from '../atoms/UserIdAtom'
+import { ConnectedUserAtom } from '../atoms/TokenAtom'
 
 export const useToken = () => {
-  const [token, setToken] = useRecoilState(TokenAtom)
-  const [userId, setUserId] = useRecoilState(UserIdAtom)
+  const [connectedUser] = useRecoilState(ConnectedUserAtom)
 
-  return { isAuthenticated: !!token }
+  return { isAuthenticated: !!connectedUser?.token }
 }

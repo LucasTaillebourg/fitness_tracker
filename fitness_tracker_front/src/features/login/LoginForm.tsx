@@ -2,9 +2,9 @@ import { Button, Group, Stack, TextInput } from '@mantine/core'
 import styles from './LoginPage.module.scss'
 import { useForm } from '@mantine/form'
 import { useRecoilState } from 'recoil'
-import { TokenAtom } from '../../atoms/TokenAtom'
 import { User } from './LoginPage'
 import { useLogin } from '../../hooks/useLogin'
+import { ConnectedUserAtom } from '../../atoms/TokenAtom'
 
 export interface RegisterFormProps {
   onReturn: () => void
@@ -12,7 +12,7 @@ export interface RegisterFormProps {
 
 export const LoginForm = ({ onReturn }: RegisterFormProps) => {
   const { mutate: login } = useLogin()
-  const [, setToken] = useRecoilState(TokenAtom)
+  const [, setConnectedUser] = useRecoilState(ConnectedUserAtom)
 
   const form = useForm<User>({
     initialValues: {
@@ -24,7 +24,10 @@ export const LoginForm = ({ onReturn }: RegisterFormProps) => {
   const onSubmit = (values: User) => {
     login(values, {
       onSuccess(data) {
-        setToken(data?.data?.token)
+        setConnectedUser({
+          token: data?.data?.token,
+          username: data?.data?.name,
+        })
       },
     })
   }
