@@ -3,9 +3,9 @@ import { AuthWrapper } from './features/login/AuthWrapper'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import styles from './App.module.scss'
 import { MantineProvider } from '@mantine/core'
-import { LandingPage } from './features/landingPage/landingPage'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { LandingPage } from './features/landingPage/LandingPage'
 
 export const App = () => {
   const queryClient = new QueryClient()
