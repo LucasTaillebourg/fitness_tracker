@@ -1,17 +1,17 @@
 import { Button, Group, Stack, TextInput } from '@mantine/core'
 import styles from './LoginPage.module.scss'
 import { useForm } from '@mantine/form'
-import { useRegister } from '../../hooks/useRegister'
 import { useRecoilState } from 'recoil'
 import { TokenAtom } from '../../atoms/TokenAtom'
 import { User } from './LoginPage'
+import { useLogin } from '../../hooks/useLogin'
 
 export interface RegisterFormProps {
   onReturn: () => void
 }
 
-export const RegisterForm = ({ onReturn }: RegisterFormProps) => {
-  const { mutate: register } = useRegister()
+export const LoginForm = ({ onReturn }: RegisterFormProps) => {
+  const { mutate: login } = useLogin()
   const [, setToken] = useRecoilState(TokenAtom)
 
   const form = useForm<User>({
@@ -22,16 +22,16 @@ export const RegisterForm = ({ onReturn }: RegisterFormProps) => {
   })
 
   const onSubmit = (values: User) => {
-    register(values, {
+    login(values, {
       onSuccess(data) {
-        setToken(data?.data?.user?.token)
+        setToken(data?.data?.token)
       },
     })
   }
 
   return (
     <>
-      <p className={styles.text}>Inscrivez vous à fitness tracker</p>
+      <p className={styles.text}>Saisissez vos informations de connection : </p>
       <form onSubmit={form.onSubmit(onSubmit)}>
         <Stack gap='sm'>
           <TextInput
@@ -52,7 +52,7 @@ export const RegisterForm = ({ onReturn }: RegisterFormProps) => {
             Retour
           </Button>
           <Button variant='filled' color='gray' type='submit'>
-            S'inscrire
+            Se connecter
           </Button>
         </Group>
       </form>

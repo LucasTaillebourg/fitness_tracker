@@ -1,9 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import styles from './LoginPage.module.scss'
-import { useRegister } from './../../hooks/useRegister'
-import { useForm } from '@mantine/form'
 import { RegisterForm } from './RegisterForm'
-import { Button } from '@mantine/core'
+import { Button, Group } from '@mantine/core'
+import { LoginForm } from './LoginForm'
 
 export enum LoginState {
   BASEPAGE = 'BASEPAGE',
@@ -11,10 +10,13 @@ export enum LoginState {
   REGISTER = 'REGISTER',
 }
 
+export interface User {
+  username: string
+  password: string
+}
+
 export const LoginPage = () => {
   const [pageState, setPageState] = useState<LoginState>(LoginState.BASEPAGE)
-
-  const { mutate } = useRegister()
 
   return (
     <div className={styles.loginContainer}>
@@ -24,7 +26,7 @@ export const LoginPage = () => {
             Bienvenue sur l'application Fitness Tracker
           </p>
           <p className={styles.text}>Que souhaitez vous faire</p>
-          <div className={styles.buttonContainer}>
+          <Group justify='space-between'>
             <Button
               variant='filled'
               color='gray'
@@ -39,25 +41,14 @@ export const LoginPage = () => {
             >
               Se connecter
             </Button>
-          </div>
+          </Group>
         </>
       )}
       {pageState === LoginState.REGISTER && (
         <RegisterForm onReturn={() => setPageState(LoginState.BASEPAGE)} />
       )}
       {pageState === LoginState.LOGIN && (
-        <>
-          <p className={styles.text}>
-            Saisissez vos informations de connection
-          </p>
-          <Button
-            variant='filled'
-            color='gray'
-            onClick={() => setPageState(LoginState.BASEPAGE)}
-          >
-            Retour
-          </Button>
-        </>
+        <LoginForm onReturn={() => setPageState(LoginState.BASEPAGE)} />
       )}
     </div>
   )
