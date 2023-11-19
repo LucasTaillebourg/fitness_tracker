@@ -4,7 +4,7 @@ export interface ConnectedUser {
   token: string
 }
 
-export const ConnectedUserAtom = atom<ConnectedUser>({
+export const ConnectedUserAtom = atom<ConnectedUser | undefined>({
   key: 'token',
   default: undefined,
 })
