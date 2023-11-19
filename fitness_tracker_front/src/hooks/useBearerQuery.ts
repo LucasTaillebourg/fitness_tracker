@@ -3,7 +3,7 @@ import { useQuery, UseQueryOptions } from '@tanstack/react-query'
 import { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
 import { useRecoilState } from 'recoil'
 
-import { ConnectedUserAtom } from 'src/atoms/TokenAtom'
+import { ConnectedUserAtom } from 'src/atoms/ConnectedUserAtom'
 import { axiosFetcher } from '../utils/axiosFetcher'
 
 export const useBearerQuery = <

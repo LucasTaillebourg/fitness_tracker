@@ -1,7 +1,7 @@
 import { useMutation, UseMutationOptions } from '@tanstack/react-query'
 import { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
 import { useRecoilState } from 'recoil'
-import { ConnectedUserAtom } from '../atoms/TokenAtom'
+import { ConnectedUserAtom } from '../atoms/ConnectedUserAtom'
 import { axiosFetcher } from '../utils/axiosFetcher'
 
 export const useBearerMutation = <

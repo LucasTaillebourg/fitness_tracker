@@ -1,17 +1,16 @@
-import { useMutation } from 'react-query'
-import { axiosFetcher } from '../utils/axiosFetcher'
+import { useBearerMutation } from './useBearerMutation'
 
 export interface RegisterPayload {
   username: string
   password: string
 }
 
-export const useRegister = () => {
-  return useMutation((payload: RegisterPayload) =>
-    axiosFetcher({
+export const useRegister = () =>
+  useBearerMutation(
+    (data: RegisterPayload) => ({
+      url: `/register`,
       method: 'POST',
-      url: `register`,
-      data: payload,
-    })
+      data,
+    }),
+    {}
   )
-}

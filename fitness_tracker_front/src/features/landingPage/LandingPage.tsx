@@ -1,5 +1,5 @@
 import { useRecoilState } from 'recoil'
-import { ConnectedUserAtom } from '../../atoms/TokenAtom'
+import { ConnectedUserAtom } from '../../atoms/ConnectedUserAtom'
 import styles from './LandingPage.module.scss'
 import { Button, Flex, Group } from '@mantine/core'
 

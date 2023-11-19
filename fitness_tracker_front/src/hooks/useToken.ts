@@ -1,5 +1,5 @@
 import { useRecoilState } from 'recoil'
-import { ConnectedUserAtom } from '../atoms/TokenAtom'
+import { ConnectedUserAtom } from '../atoms/ConnectedUserAtom'
 
 export const useToken = () => {
   const [connectedUser] = useRecoilState(ConnectedUserAtom)

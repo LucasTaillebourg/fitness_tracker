@@ -4,7 +4,7 @@ import { useForm } from '@mantine/form'
 import { useRegister } from '../../hooks/useRegister'
 import { useRecoilState } from 'recoil'
 import { User } from './LoginPage'
-import { ConnectedUserAtom } from '../../atoms/TokenAtom'
+import { ConnectedUserAtom } from '../../atoms/ConnectedUserAtom'
 import { toast } from 'react-toastify'
 
 export interface RegisterFormProps {
@@ -24,7 +24,7 @@ export const RegisterForm = ({ onReturn }: RegisterFormProps) => {
 
   const onSubmit = (values: User) => {
     register(values, {
-      onSuccess(data) {
+      onSuccess(data: any) {
         setConnectedUser({
           token: data?.data?.user?.token,
           username: data?.data?.user?.name,
