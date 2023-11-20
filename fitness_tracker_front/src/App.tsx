@@ -5,7 +5,8 @@ import styles from './App.module.scss'
 import { MantineProvider } from '@mantine/core'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { Router } from './features/router/Router'
+import { RouteHandler } from './features/routeHandler/RouteHandler'
+import { BrowserRouter } from 'react-router-dom'
 
 export const App = () => {
   const queryClient = new QueryClient()
@@ -28,7 +29,9 @@ export const App = () => {
         <MantineProvider defaultColorScheme='dark'>
           <RecoilRoot>
             <AuthWrapper>
-              <Router />
+              <BrowserRouter>
+                <RouteHandler />
+              </BrowserRouter>
             </AuthWrapper>
           </RecoilRoot>
         </MantineProvider>

@@ -21,10 +21,20 @@ export const LandingPage = () => {
             </p>
             <p className={styles.text}>Que souhaitez vous faire ? </p>
             <Group justify='space-between' mt='md'>
-              <Button variant='filled' color='gray'>
+              <Button
+                variant='filled'
+                color='gray'
+                component='a'
+                href='/training/new'
+              >
                 Nouvel entrainement
               </Button>
-              <Button variant='filled' color='gray'>
+              <Button
+                variant='filled'
+                color='gray'
+                component='a'
+                href='/training'
+              >
                 Voir les entrainements
               </Button>
             </Group>
