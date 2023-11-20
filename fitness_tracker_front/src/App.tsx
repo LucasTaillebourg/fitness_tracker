@@ -5,7 +5,7 @@ import styles from './App.module.scss'
 import { MantineProvider } from '@mantine/core'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { LandingPage } from './features/landingPage/LandingPage'
+import { Router } from './features/router/Router'
 
 export const App = () => {
   const queryClient = new QueryClient()
@@ -28,7 +28,7 @@ export const App = () => {
         <MantineProvider defaultColorScheme='dark'>
           <RecoilRoot>
             <AuthWrapper>
-              <LandingPage />
+              <Router />
             </AuthWrapper>
           </RecoilRoot>
         </MantineProvider>
