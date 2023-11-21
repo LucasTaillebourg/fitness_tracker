@@ -7,6 +7,7 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { RouteHandler } from './features/routeHandler/RouteHandler'
 import { BrowserRouter } from 'react-router-dom'
+import 'dayjs/locale/fr'
 
 export const App = () => {
   const queryClient = new QueryClient()
