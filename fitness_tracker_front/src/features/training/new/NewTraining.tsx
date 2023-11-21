@@ -1,17 +1,17 @@
-import { Stack, TextInput } from '@mantine/core'
+import { Button, Group, Stack, TextInput } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { DateInput, DateValue } from '@mantine/dates'
 import { ExerciceForm } from './ExerciceForm'
 import styles from './NewTraining.module.scss'
 
-export interface Series {
+export interface Serie {
   machine_id: number
   weight: number
   repetitions: number
 }
 export interface Exercice {
   name: string
-  series: Series[]
+  series: Serie[]
 }
 export interface Training {
   date: DateValue
@@ -52,6 +52,18 @@ export const NewTraining = () => {
         {form.values.exercices.map((item, index) => (
           <ExerciceForm exercice={item} index={index} form={form} />
         ))}
+        <Group justify='center' mt='md'>
+          <Button
+            onClick={() =>
+              form.insertListItem('exercices', {
+                name: '',
+                series: [],
+              })
+            }
+          >
+            Ajouter un exercice
+          </Button>
+        </Group>
       </Stack>
     </form>
   )

@@ -14,6 +14,7 @@
     "@mantine/dates": "^7.2.2",
     "@mantine/form": "^7.2.2",
     "@mantine/hooks": "^7.2.2",
+    "@tabler/icons-react": "^2.41.0",
     "@tanstack/query-core": "^4.29.7",
     "@tanstack/react-query": "^4.29.7",
     "@tanstack/react-query-devtools": "^4.29.7",
