@@ -1,9 +1,8 @@
-import { ActionIcon, Button, Group, Stack, TextInput } from '@mantine/core'
+import { ActionIcon, Grid, NumberInput, TextInput } from '@mantine/core'
 import { Exercice, Training } from './NewTraining'
 import { UseFormReturnType } from '@mantine/form'
 import styles from './NewTraining.module.scss'
 import { IconTrash } from '@tabler/icons-react'
-import { SeriesForm } from './SeriesForm'
 
 export interface ExerciceProps {
   exercice: Exercice
@@ -13,42 +12,45 @@ export interface ExerciceProps {
 
 export const ExerciceForm = ({ exercice, index, form }: ExerciceProps) => {
   return (
-    <div className={styles.exercice}>
-      <Group key={index} mt='xs'>
+    <Grid grow gutter='lg' className={styles.exercice}>
+      <Grid.Col span={5}>
         <TextInput
           label="Nom de l'exercice"
-          placeholder='Nom de votre exercice'
+          placeholder='Nom'
           withAsterisk
           {...form.getInputProps(`exercices.${index}.name`)}
         />
+      </Grid.Col>
+      <Grid.Col span={5}>
+        <NumberInput
+          label='Poids'
+          withAsterisk
+          {...form.getInputProps(`exercices.${index}.weight`)}
+        />
+      </Grid.Col>
+      <Grid.Col span={2} mt='lg'>
         <ActionIcon
           color='red'
           onClick={() => form.removeListItem('exercices', index)}
         >
           <IconTrash size='1rem' />
         </ActionIcon>
-      </Group>
-      {form.values.exercices[index].series.map((item, serieIndex) => (
-        <SeriesForm
-          exerciceIndex={index}
-          serie={item}
-          index={serieIndex}
-          form={form}
+      </Grid.Col>
+      <Grid.Col span={5}>
+        <NumberInput
+          label='Répétitions'
+          withAsterisk
+          {...form.getInputProps(`exercices.${index}.repetitions`)}
         />
-      ))}
-      <Group justify='center' mt='md'>
-        <Button
-          onClick={() =>
-            form.insertListItem(`exercices.${index}.series`, {
-              machine_id: '',
-              weight: 0,
-              repetitions: 0,
-            })
-          }
-        >
-          Ajouter une serie
-        </Button>
-      </Group>
-    </div>
+      </Grid.Col>
+      <Grid.Col span={5}>
+        <NumberInput
+          label='Nombre de série'
+          withAsterisk
+          {...form.getInputProps(`exercices.${index}.series`)}
+        />
+      </Grid.Col>
+      <Grid.Col span={2} />
+    </Grid>
   )
 }
